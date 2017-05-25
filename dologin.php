@@ -1,22 +1,18 @@
 <?php
 session_start();
+include 'Core/autoLoadClass.php';
 if(isset($_SESSION['username'])){
-	header("Location: profile.php");
-	die();
+	redirect::to('profile.php');
 }
 if(!empty($_POST['username']) && !empty($_POST['password'])){
-	include 'Database/connect.php';
-	include 'Core/autoLoadClass.php';
+	include 'Database/dbHelper.php';
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
-	$userLogIn = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-	$result = $conn->query($userLogIn);
-	if(mysqli_num_rows($result) != 0){
-		$row = $result->fetch_array(MYSQLI_ASSOC);
-		$conn->close();
+	$dbHelp = new dbHelp;
+	$selectUser = $dbHelp->select("*","users",array("username"=>$username,"password"=>$password));
+	if(count($selectUser) != 0){
 		$_SESSION['username'] = $username;
-		$_SESSION['userID'] = $row['userID'];
-		// header("Location: profile.php");
+		$_SESSION['userID'] = $selectUser['userID'];
 		redirect::to('profile.php');
 	}else{
 		redirect::to('index.php?incorrect');

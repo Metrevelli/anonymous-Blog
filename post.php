@@ -46,17 +46,9 @@ if(isset($_POST['comment']) && !empty($_POST['comment'])){
 		$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $postOwnerData[0]["anonymousID"],'comment' => $comment));
 		echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
 	}else{
-		$sqll = "SELECT * FROM comments WHERE userID = '$userID' AND postID = '$postID'";
-		$userComment = $conn->query($sqll);
-		$userCommentArray = array();
-		$commenter = $userComment->fetch_array(MYSQLI_ASSOC);
-
-		$commenterID = $commenter['anonymousID'];
-		while($roww = $userComment->fetch_array(MYSQLI_ASSOC)){
-			$userCommentArray[] = $roww;
-		}
-			if(mysqli_num_rows($userComment) != 0 ){
-				$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $commenterID,'comment' => $comment));
+		$commenter = $dbHelp->select("*","comments",array("userID"=>$userID,"postID"=>$postID));
+			if(count($commenter) != 0){
+				$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $commenter['anonymousID'],'comment' => $comment));
 				echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
 			}else{
 				$anonymousID = rand(0,3000);

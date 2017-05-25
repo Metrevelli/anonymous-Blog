@@ -6,9 +6,8 @@ include 'Database/dbHelper.php';
 include 'Core/autoLoadClass.php';
 $dbHelp = new dbHelp;
 $username = $_POST['username'];
-$userExists = "SELECT * FROM users WHERE username = '$username' ";
-$result = $conn->query($userExists);
-	if(mysqli_num_rows($result) == 0){
+$ifUserExists = $dbHelp->select("*","users",array("username"=>$username));
+	if(count($ifUserExists) == 0){
 		$password = md5($_POST['password']);
 		$insertUser = $dbHelp->insert('users',array('username'=>$username,'password'=>$password));
 		if($insertUser){
