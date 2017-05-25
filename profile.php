@@ -1,12 +1,12 @@
 <?php
 session_start();
+	include 'Core/autoLoadClass.php';
 	if(!isset($_SESSION['username'])){
-		header("Location: index.php");
+		redirect::to('index.php');
 	}
 	if(isset($_GET['logout'])){	
 		session_destroy();
-		header("Location: index.php");
-		die();
+		redirect::to('index.php');
 	}
 	echo $_SESSION['username'];
 	echo "<br><a href='profile.php?logout'>LOG OUT</a>";

@@ -2,6 +2,9 @@
 session_start();
 if(!empty($_POST['username']) && !empty($_POST['password'])){
 include 'Database/connect.php';
+include 'Database/dbHelper.php';
+include 'Core/autoLoadClass.php';
+$dbhelp = new dbHelp;
 $username = $_POST['username'];
 $userExists = "SELECT * FROM users WHERE username = '$username' ";
 $result = $conn->query($userExists);
@@ -10,17 +13,13 @@ $result = $conn->query($userExists);
 		$insertUser = "INSERT INTO users (username,password) VALUES ('$username','$password')";
 		$insertUserResult = $conn->query($insertUser);
 		if($insertUserResult){
-			$conn->close();
 			$_SESSION['username'] = $username;
-			header("Location: profile.php");
-			die();
+			redirect::to('profile.php');
 		}
 	}else{
-		header("Location: index.php?userExists");
-		die();	
+		redirect::to('index.php?userExists');
 	}
 }else{
-	header("Location: index.php?emptyUsernamePassword");
-	die();
+	redirect::to('index.php?emptyUsernamePassword');
 }
 ?>

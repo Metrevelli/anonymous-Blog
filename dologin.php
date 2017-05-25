@@ -6,6 +6,7 @@ if(isset($_SESSION['username'])){
 }
 if(!empty($_POST['username']) && !empty($_POST['password'])){
 	include 'Database/connect.php';
+	include 'Core/autoLoadClass.php';
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
 	$userLogIn = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
@@ -15,11 +16,10 @@ if(!empty($_POST['username']) && !empty($_POST['password'])){
 		$conn->close();
 		$_SESSION['username'] = $username;
 		$_SESSION['userID'] = $row['userID'];
-		header("Location: profile.php");
-		die();
+		// header("Location: profile.php");
+		redirect::to('profile.php');
 	}else{
-		header("Location: index.php?incorrect");
-		die();
+		redirect::to('index.php?incorrect');
 	}
 }
 ?>

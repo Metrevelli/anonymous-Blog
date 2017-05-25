@@ -1,13 +1,12 @@
 <?php
 	session_start();
+	include 'Core/autoLoadClass.php';
 	if(!isset($_SESSION['username'])){
-		header('Location: index.php');
-		die();
+		redirect::to('index.php');
 	}
 
 	if(empty($_GET['postnum'])){
-		header('Location: profile.php');
-		die();
+		redirect::to('profile.php');
 	}
 	include "Database/dbHelper.php";
 	$dbHelp = new dbHelp;
@@ -39,13 +38,12 @@
 }
 if(isset($_POST['comment']) && !empty($_POST['comment'])){
 	include "Database/connect.php";
-
 	$userID = $_SESSION['userID'];
 	$postID = $_GET['postnum'];
 	$comment = $_POST['comment'];
-	$postOwnerData = $dbHelp->select("anonymousID","post",array("userID" => $userID,"postID" => $postID));
-	if(mysqli_num_rows($isThisMyPost) != 0){
-		$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $postOwnerData["anonymousID"],'comment' => $comment));
+	$postOwnerData = $dbHelp->select("*","post",array("userID" => $userID,"postID" => $postID));
+	if(count($postOwnerData) != 0){
+		$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $postOwnerData[0]["anonymousID"],'comment' => $comment));
 		echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
 	}else{
 		$sqll = "SELECT * FROM comments WHERE userID = '$userID' AND postID = '$postID'";

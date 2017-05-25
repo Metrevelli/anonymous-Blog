@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
-	include 'loginErrorsAndLogout.php';
+	include 'Includes/Errors/loginErrorsAndLogout.php';
 ?>
 	<head>
 	</head>

@@ -1,20 +1,19 @@
 <?php
 session_start();
+include 'Core/autoLoadClass.php';
 if(!isset($_SESSION['username'])){
-	header("Location: index.php");
-	die();
+	redirect::to('index.php');
 }
 print_r($_POST);
 if(!empty($_POST['title']) && !empty($_POST['content'])){
 	include 'Database/connect.php';
+	include 'Database/dbHelper.php';
+	$dbHelp = new dbHelp;
 	$title = $_POST['title'];
 	$content = $_POST['content'];
 	$userID = $_SESSION['userID'];
 	$anonymousID  = rand(0,3000);
-$insertPost = "INSERT INTO post (title,content,userID,anonymousID) VALUES ('$title','$content','$userID','$anonymousID')";
-	$conn->query($insertPost);
-	$conn->close();
-	header('Location: profile.php');
-	die();
+	$dbHelp->insert("post",array("title"=>$title,"content"=>$content,"userID"=>$userID,"anonymousID"=>$anonymousID));
+	redirect::to('profile.php');
 }
 ?>
