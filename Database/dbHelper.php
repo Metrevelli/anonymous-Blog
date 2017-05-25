@@ -9,7 +9,7 @@ class dbHelp{
     			die("Oops something went wrong!");
 		}
 	}
-		function insert($table,$array){
+	function insert($table,$array){
 		if(!empty($table) && !empty($array)){
 			$keys = '';
 			$keysForValues = '';
@@ -22,8 +22,7 @@ class dbHelp{
             $keys = rtrim($keys, ',');
             $keysForValues = rtrim($keysForValues, ',');
 			$stmt = $this->connect->prepare("INSERT INTO $table ($keys) VALUES ($keysForValues)");
-			$stmt->execute($insertKeyValueArray);
-
+			return $stmt->execute($insertKeyValueArray) ? TRUE : FALSE;
 		}
 	}
 	 function select($what = "*",$table,$fields = []){
