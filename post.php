@@ -44,16 +44,16 @@ if(isset($_POST['comment']) && !empty($_POST['comment'])){
 	$postOwnerData = $dbHelp->select("*","post",array("userID" => $userID,"postID" => $postID));
 	if(count($postOwnerData) != 0){
 		$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $postOwnerData[0]["anonymousID"],'comment' => $comment));
-		echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
+		redirect::to("post.php?postnum=$postID");
 	}else{
 		$commenter = $dbHelp->select("*","comments",array("userID"=>$userID,"postID"=>$postID));
 			if(count($commenter) != 0){
 				$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $commenter['anonymousID'],'comment' => $comment));
-				echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
+				redirect::to("post.php?postnum=$postID");
 			}else{
 				$anonymousID = rand(0,3000);
 				$dbHelp->insert('comments',array('userID' => $userID,'postID' => $postID,'anonymousID' => $anonymousID,'comment' => $comment));
-				echo "<meta http-equiv='refresh' content='0;url=post.php?postnum=$postID'>";
+				redirect::to("post.php?postnum=$postID");
 			}
 	}
 }

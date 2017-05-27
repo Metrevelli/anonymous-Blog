@@ -1,6 +1,8 @@
 <?php
-session_start();
+	session_start();
 	include 'Core/autoLoadClass.php';
+	include_once 'Includes/Partials/header.php';
+
 	if(!isset($_SESSION['username'])){
 		redirect::to('index.php');
 	}
@@ -8,31 +10,54 @@ session_start();
 		session_destroy();
 		redirect::to('index.php');
 	}
-	echo $_SESSION['username'];
-	echo "<br><a href='profile.php?logout'>LOG OUT</a>";
-
 	include "Database/dbHelper.php";
 	$dbHelper = new dbHelp;
 	$postArray = $dbHelper->select("*","post",array(""));
 ?>
-<center>
-<form action="createPost.php" method="POST">
-	<input type="text" name="title" placeholder="Title">
-	<br>
-	<textarea placeholder="content" name="content"></textarea>
-	<br>
-	<input type="submit" name="submit" value="Add">
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Why? <?php echo $_SESSION['username']; ?></a>
+    </div>
+    <ul class="nav navbar-nav" style="float:right">
+      <li><a href="profile.php?logout">Log Out</a></li>
+    </ul>
+  </div>
+</nav>
+<form action="createPost.php" method="POST" class="form-horizontal">
+<fieldset>
+    <div class="form-group">
+      <label for="inputPostName" class="col-lg-4 control-label">Title</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" id="inputPostName" placeholder="Post Title" name="title">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="content" class="col-lg-4 control-label">Content</label>
+      <div class="col-lg-4">
+        <textarea class="form-control" rows="3" id="content" name="content" placeholder="content"></textarea>
+      </div>
+    </div>
+	<div class="form-group">
+      <div class="col-lg-10 col-lg-offset-4">
+        <button type="submit" class="btn btn-info">[ Add Post ]<span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </div>
+	</fieldset>
 </form>
-</center>
-<center>
-	<table>
-		<tr>
-		<?php foreach ($postArray as $key => $value) { ?>
-			<td><a href="post.php?postnum=<?= $value['postID']?>"><?=substr($value['title'],0,40)?></a></td>
-			<tr>
-				<td><?=substr($value['content'],0,40)?></td>
-			</tr>
-		</tr>
-		<?php } ?>
-	</table>	
-</center>
+<div class="container">
+	<div class="row">
+			<?php foreach ($postArray as $key => $value) { ?>
+			<a href="post.php?postnum=<?= $value['postID']?>">
+			  <div class="panel panel-danger col-md-4">
+			    <div class="panel-heading "><?=substr($value['title'],0,42)?> <span class="label label-success">Hey Yo</span></div>
+			      <div class="panel-body">
+			          <p><?=substr($value['content'],0,95)?></p>
+			      </div>
+			  </div>
+			</a>
+			<?php } ?>
+	</div>
+</div>
+<?php include_once 'Includes/Partials/header.php'; ?>

@@ -12,10 +12,12 @@ if(!empty($_POST['username']) && !empty($_POST['password'])){
 	$selectUser = $dbHelp->select("*","users",array("username"=>$username,"password"=>$password));
 	if(count($selectUser) != 0){
 		$_SESSION['username'] = $username;
-		$_SESSION['userID'] = $selectUser['userID'];
+		$_SESSION['userID'] = $selectUser[0]['userID'];
 		redirect::to('profile.php');
 	}else{
 		redirect::to('index.php?incorrect');
 	}
+}else{
+	redirect::to("index.php");
 }
 ?>

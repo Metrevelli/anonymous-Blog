@@ -4,8 +4,9 @@ include 'Core/autoLoadClass.php';
 if(!isset($_SESSION['username'])){
 	redirect::to('index.php');
 }
-print_r($_POST);
+
 if(!empty($_POST['title']) && !empty($_POST['content'])){
+
 	include 'Database/connect.php';
 	include 'Database/dbHelper.php';
 	$dbHelp = new dbHelp;
