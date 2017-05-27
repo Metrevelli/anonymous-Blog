@@ -17,7 +17,6 @@ if(!empty($_POST['username']) && !empty($_POST['password'])){
 	}else{
 		redirect::to('index.php?incorrect');
 	}
-}else{
-	redirect::to("index.php");
 }
+redirect::to("index.php");
 ?>

@@ -17,4 +17,5 @@ if(!empty($_POST['title']) && !empty($_POST['content'])){
 	$dbHelp->insert("post",array("title"=>$title,"content"=>$content,"userID"=>$userID,"anonymousID"=>$anonymousID));
 	redirect::to('profile.php');
 }
+redirect::to('profile.php');
 ?>
