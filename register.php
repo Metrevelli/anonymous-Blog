@@ -1,9 +1,9 @@
 <?php
 session_start();
+include 'Core/autoLoadClass.php';
 if(!empty($_POST['username']) && !empty($_POST['password'])){
 include 'Database/connect.php';
 include 'Database/dbHelper.php';
-include 'Core/autoLoadClass.php';
 $dbHelp = new dbHelp;
 $username = $_POST['username'];
 $ifUserExists = $dbHelp->select("*","users",array("username"=>$username));

@@ -41,7 +41,7 @@
     </div>
 	<div class="form-group">
       <div class="col-lg-10 col-lg-offset-4">
-        <button type="submit" class="btn btn-info">[ Add Post ]<span class="glyphicon glyphicon-ok"></span></button>
+        <button type="submit" class="btn btn-info">[ Add Post ] <span class="glyphicon glyphicon-send"></span></button>
       </div>
     </div>
 	</fieldset>

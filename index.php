@@ -11,7 +11,7 @@
 	<br>
 	</br>
 	</br>
-	<label>Log IN</label>
+	<label>Log In</label>
 		<hr>
 		<form method="POST" action="dologin.php" class="form-horizontal">
 	<fieldset>
