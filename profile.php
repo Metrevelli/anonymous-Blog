@@ -14,17 +14,6 @@
 	$dbHelper = new dbHelp;
 	$postArray = $dbHelper->select("*","post",array(""));
 ?>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Why? <?php echo $_SESSION['username']; ?></a>
-    </div>
-    <ul class="nav navbar-nav" style="float:right">
-      <li><a href="profile.php?logout">Log Out</a></li>
-    </ul>
-  </div>
-</nav>
 <form action="createPost.php" method="POST" class="form-horizontal">
 <fieldset>
     <div class="form-group">

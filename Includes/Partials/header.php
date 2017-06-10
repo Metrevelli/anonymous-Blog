@@ -16,3 +16,13 @@
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="profile.php">Why? <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?></a>
+    </div>
+    <ul class="nav navbar-nav" style="float:right">
+     <?php echo isset($_SESSION['username']) ? '<li><a href="profile.php?logout">Log Out</a></li>':''; ?>
+    </ul>
+  </div>
+</nav>
