@@ -3,7 +3,7 @@ class dbHelp{
 	private $connect;
 	function __construct(){
 		try {
-		$this->connect = new PDO('mysql:host=localhost;dbname=anonymousblog;charset=utf8mb4', 'root', 'usbw');
+		$this->connect = new PDO('mysql:host=localhost;dbname=anonymousblog;charset=utf8mb4', 'root', '8zxrknec');
 		} catch (PDOException $e) {
 			    print "Error!: " . $e->getMessage() . "<br/>";
     			die("Oops something went wrong!");
@@ -48,6 +48,4 @@ class dbHelp{
         return $where;
     }
 }
-
-
 ?>
